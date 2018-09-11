@@ -14,29 +14,19 @@
  * limitations under the License.
  */
 
-package io.plaidapp.about.dagger
+package io.plaidapp.core.dagger
 
-import android.content.res.Resources
 import dagger.Module
 import dagger.Provides
-import io.plaidapp.about.ui.AboutActivity
-import io.plaidapp.about.ui.AboutStyler
+import io.plaidapp.core.data.CoroutinesContextProvider
 import javax.inject.Singleton
 
 /**
- * Dagger module providing stuff for [AboutActivity].
+ * Provide [CoroutinesContextProvider] to this app's components.
  */
-@Module class AboutActivityModule(private val activity: AboutActivity) {
+@Module class CoroutinesContextProviderModule {
 
     @Provides
     @Singleton
-    fun provideContext(): AboutActivity = activity
-
-    @Provides
-    @Singleton
-    fun provideResources(): Resources = activity.resources
-
-    @Provides
-    @Singleton
-    fun provideAboutStyler() = AboutStyler(activity)
+    fun coroutinesContextProvider() = CoroutinesContextProvider()
 }

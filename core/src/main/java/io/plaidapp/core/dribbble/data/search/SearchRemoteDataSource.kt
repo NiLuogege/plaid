@@ -22,11 +22,13 @@ import io.plaidapp.core.dribbble.data.search.DribbbleSearchService.Companion.PER
 import io.plaidapp.core.dribbble.data.search.SearchRemoteDataSource.SortOrder.RECENT
 import io.plaidapp.core.util.safeApiCall
 import java.io.IOException
+import javax.inject.Inject
+import javax.inject.Named
 
 /**
  * Work with our fake Dribbble API to search for shots by query term.
  */
-class SearchRemoteDataSource(private val service: DribbbleSearchService) {
+class SearchRemoteDataSource @Inject constructor(@Named("service") private val service: DribbbleSearchService) {
 
     suspend fun search(
         query: String,

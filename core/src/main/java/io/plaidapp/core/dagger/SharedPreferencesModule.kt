@@ -14,29 +14,21 @@
  * limitations under the License.
  */
 
-package io.plaidapp.about.dagger
+package io.plaidapp.core.dagger
 
-import android.content.res.Resources
+import android.content.Context
+import android.content.SharedPreferences
 import dagger.Module
 import dagger.Provides
-import io.plaidapp.about.ui.AboutActivity
-import io.plaidapp.about.ui.AboutStyler
-import javax.inject.Singleton
 
 /**
- * Dagger module providing stuff for [AboutActivity].
+ * Provide [SharedPreferences] to this app's components.
  */
-@Module class AboutActivityModule(private val activity: AboutActivity) {
+@Module class SharedPreferencesModule(val context: Context, val name: String) {
 
     @Provides
-    @Singleton
-    fun provideContext(): AboutActivity = activity
-
-    @Provides
-    @Singleton
-    fun provideResources(): Resources = activity.resources
-
-    @Provides
-    @Singleton
-    fun provideAboutStyler() = AboutStyler(activity)
+    fun sharedPreferences(): SharedPreferences {
+        return context.applicationContext
+            .getSharedPreferences(name, Context.MODE_PRIVATE)
+    }
 }

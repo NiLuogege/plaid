@@ -14,29 +14,26 @@
  * limitations under the License.
  */
 
-package io.plaidapp.about.dagger
+package io.plaidapp.dribbble.dagger
 
-import android.content.res.Resources
-import dagger.Module
-import dagger.Provides
-import io.plaidapp.about.ui.AboutActivity
-import io.plaidapp.about.ui.AboutStyler
+import dagger.BindsInstance
+import dagger.Component
+import io.plaidapp.dribbble.ui.shot.ShotActivity
 import javax.inject.Singleton
 
-/**
- * Dagger module providing stuff for [AboutActivity].
- */
-@Module class AboutActivityModule(private val activity: AboutActivity) {
+@Singleton
+@Component(modules = [DribbbleModule::class])
+interface DribbbleComponent {
 
-    @Provides
-    @Singleton
-    fun provideContext(): AboutActivity = activity
+    fun inject(activity: ShotActivity)
 
-    @Provides
-    @Singleton
-    fun provideResources(): Resources = activity.resources
+    @Component.Builder
+    interface Builder {
 
-    @Provides
-    @Singleton
-    fun provideAboutStyler() = AboutStyler(activity)
+        fun build(): DribbbleComponent
+
+        @BindsInstance fun activity(activity: ShotActivity): Builder
+
+        fun dribbbleModule(module: DribbbleModule): Builder
+    }
 }
